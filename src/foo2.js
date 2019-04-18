@@ -1,5 +1,3 @@
+import h from './foo.js';
 export {h}
-var h = function(){
-    console.log(111)
-}
 

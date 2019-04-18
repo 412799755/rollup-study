@@ -131,6 +131,29 @@ function curryIt(fn) {
             return result;
         }
     }
-
     return result;
+}
+// 找出对象 obj 不在原型链上的属性(注意这题测试例子的冒号后面也有一个空格~)
+// 1、返回数组，格式为 key: value
+// 2、结果数组不要求顺序
+var C = function() {this.foo = 'bar'; this.baz = 'bim';};
+C.prototype.bop = 'bip';
+iterate(new C());
+function iterate(obj) {
+    var keys = Object.keys(obj)
+    var result  = []
+    for (var i = 0; i < keys.length; i++) {
+        result.push(keys[i] + ': ' + obj[keys[i]])
+    }
+    return result
+}
+//是否含有数字
+function containsNumber(str) {
+return /\d+/.test(str)
+}
+function endsWithVowel(str) {
+return /[aeiou]$/i.test(str)
+}
+function matchesPattern(str) {
+return /^\d{3}-\d{3}-\d{4}$/.test(str)
 }

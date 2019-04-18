@@ -1,1 +1,1 @@
-export default 'hello world!';
+export default {a:1};

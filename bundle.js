@@ -1,11 +1,7 @@
 'use strict';
 
-var foo = 'hello world!';
-
-var h = function(){
-    console.log(111);
-};
+var h = {a:1};
 
 // src/main.js
-    console.log(foo);
+    console.log(h);
 console.log(h);
