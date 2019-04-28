@@ -1,5 +1,9 @@
 // src/main.js
-import foo from './foo.js';
-import {h} from './foo2.js'
-    console.log(foo);
-console.log(h)
+var http = require('https')
+const fs = require('fs')
+if (!fs.existsSync('dist')) {
+    fs.mkdirSync('dist')
+}
+console.log(4424)
+//     console.log(foo);
+// console.log(h)
