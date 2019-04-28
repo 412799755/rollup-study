@@ -12,8 +12,12 @@ function swap(indexA,indexB,arr){
 //选择排序 O(n²) 在所有的完全依靠交换去移动元素的排序方法中，选择排序属于非常好的一种。 不稳定
 function SelectionSort(arr){
     for (let i = 0; i < arr.length; i++) {
+        let min = i
         for (let j = i+1; j < arr.length; j++) {
-            if(arr[j] < arr[i]){swap(i,j,arr)}
+            if(arr[j] < arr[min]){min = j}
+        }
+        if(min !==i){
+            swap(min,i,arr)
         }
     }
     return arr
@@ -30,3 +34,19 @@ function bubbleSort(arr){
     return arr
 }
 bubbleSort([5,2,8,9,4,2,1,7])
+
+//插入排序
+function insertSort(arr){
+    for (let i = 1; i < arr.length-1; i++) {
+        for (let j = i; j >0; j--) {
+            if(arr[j] < arr[j-1]){
+                swap(j,j-1,arr)
+            }else{
+                break
+            }
+        }
+    }
+    return arr
+}
+insertSort([5,2,8,9,4,2,1,7])
+
