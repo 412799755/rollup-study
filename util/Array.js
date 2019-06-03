@@ -157,3 +157,93 @@ return /[aeiou]$/i.test(str)
 function matchesPattern(str) {
 return /^\d{3}-\d{3}-\d{4}$/.test(str)
 }
+// reduce polyfill
+// Production steps of ECMA-262, Edition 5, 15.4.4.21
+// Reference: http://es5.github.io/#x15.4.4.21
+// https://tc39.github.io/ecma262/#sec-array.prototype.reduce
+if (!Array.prototype.reduce) {
+    Object.defineProperty(Array.prototype, 'reduce', {
+        value: function(callback /*, initialValue*/) {
+            if (this === null) {
+                throw new TypeError( 'Array.prototype.reduce ' +
+                    'called on null or undefined' );
+            }
+            if (typeof callback !== 'function') {
+                throw new TypeError( callback +
+                    ' is not a function');
+            }
+
+            // 1. Let O be ? ToObject(this value).
+            var o = Object(this);
+
+            // 2. Let len be ? ToLength(? Get(O, "length")).
+            var len = o.length >>> 0;
+
+            // Steps 3, 4, 5, 6, 7
+            var k = 0;
+            var value;
+
+            if (arguments.length >= 2) {
+                value = arguments[1];
+            } else {
+                while (k < len && !(k in o)) {
+                    k++;
+                }
+
+                // 3. If len is 0 and initialValue is not present,
+                //    throw a TypeError exception.
+                if (k >= len) {
+                    throw new TypeError( 'Reduce of empty array ' +
+                        'with no initial value' );
+                }
+                value = o[k++];
+            }
+
+            // 8. Repeat, while k < len
+            while (k < len) {
+                // a. Let Pk be ! ToString(k).
+                // b. Let kPresent be ? HasProperty(O, Pk).
+                // c. If kPresent is true, then
+                //    i.  Let kValue be ? Get(O, Pk).
+                //    ii. Let accumulator be ? Call(
+                //          callbackfn, undefined,
+                //          « accumulator, kValue, k, O »).
+                if (k in o) {
+                    value = callback(value, o[k], k, o);
+                }
+
+                // d. Increase k by 1.
+                k++;
+            }
+
+            // 9. Return accumulator.
+            return value;
+        }
+    });
+}
+
+// 整数字面量默认是有符号数
+// 有符号数31位表示数值 1位表示符号
+// -2147483648 到2147483647
+// 负数也存储为二进制代码，不过采用的形式是二进制补码。计算数字二进制补码的步骤有三步：
+//
+// 确定该数字的非负版本的二进制表示（例如，要计算 -18的二进制补码，首先要确定 18 的二进制表示）
+// 求得二进制反码，即要把 0 替换为 1，把 1 替换为 0
+// 在二进制反码上加 1
+var iNum = 18;
+alert(iNum.toString(2));//输出 "10010"
+var iNum = -18;
+alert(iNum.toString(2));//输出 "-10010"
+
+// 位运算 NOT ~
+// 位运算 NOT 是三步的处理过程：
+//
+// 1.把运算数转换成 32 位数字
+// 2.把二进制数转换成它的二进制反码
+// 3.把二进制数转换成浮点数
+// 位运算 AND &
+// 位运算 OR |
+// 位运算 XOR ^
+// 左移运算 << 左移运算保留数字的符号位。
+// 有符号右移运算
+// 无符号右移运算 >>>
