@@ -115,7 +115,7 @@ Array.prototype.heap_sort = function() {
     }
 
     function max_heapify(start, end) {
-        //建立父節點指標和子節點指標
+        //建立父节点指标和子节点指标
         var dad = start;
         var son = dad * 2 + 1;
         if (son >= end)//若子節點指標超過範圍直接跳出函數
